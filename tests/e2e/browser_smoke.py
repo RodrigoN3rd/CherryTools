@@ -15,10 +15,16 @@ with sync_playwright() as playwright:
     page.goto("http://127.0.0.1:3100/tools/color-contrast-checker", wait_until="networkidle")
     assert page.get_by_role("heading", name="Contraste").is_visible()
     assert page.get_by_text("Próximo ajuste").is_visible()
+    with page.expect_download() as contrast_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert contrast_png_download.value.suggested_filename == "cherry-contrast.png"
     page.screenshot(path="/tmp/cherry-contrast.png", full_page=True)
     page.goto("http://127.0.0.1:3100/tools/typography-scale-generator", wait_until="networkidle")
     assert page.get_by_role("heading", name="Escala tipográfica").is_visible()
     assert "--type-6" in page.locator(".code-block").inner_text()
+    with page.expect_download() as scale_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert scale_png_download.value.suggested_filename == "cherry-type-scale.png"
 
     page.goto("http://127.0.0.1:3100/tools/google-font-explorer", wait_until="networkidle")
     assert page.get_by_role("heading", name="Google Fonts").is_visible()
@@ -116,12 +122,18 @@ with sync_playwright() as playwright:
     page.goto("http://127.0.0.1:3100/tools/css-pattern-generator", wait_until="networkidle")
     page.locator("#pattern-kind").select_option("lines")
     assert "repeating-linear-gradient" in page.locator(".code-block").inner_text()
+    with page.expect_download() as pattern_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert pattern_png_download.value.suggested_filename == "cherry-pattern.png"
     page.screenshot(path="/tmp/cherry-pattern.png", full_page=True)
 
     page.goto("http://127.0.0.1:3100/tools/design-inspiration-prompt-generator", wait_until="networkidle")
     page.locator("#prompt-niche").fill("capa de álbum")
     page.get_by_role("button", name="Outra direção").click()
     assert "capa de álbum" in page.locator(".code-block").inner_text()
+    with page.expect_download() as briefing_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert briefing_png_download.value.suggested_filename == "cherry-briefing.png"
 
     page.goto("http://127.0.0.1:3100/tools/moodboard-creator", wait_until="networkidle")
     page.locator("#moodboard-files").set_input_files("/tmp/cherry-home.png")

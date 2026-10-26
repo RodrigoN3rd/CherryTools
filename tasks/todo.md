@@ -30,7 +30,7 @@
   - Verificar: suporte e download em Chromium.
   - Arquivos: estúdio, exportador, testes.
 
-- [ ] PNG para as 20 ferramentas existentes
+- [x] PNG para as 20 ferramentas existentes
   - Aceite: os exportadores de CSS/JSON/texto também oferecem uma imagem da prévia; formatos antigos continuam disponíveis.
   - Verificar: matriz de smoke tests de cada categoria.
   - Arquivos: estúdios existentes, CSS, exportadores e testes.

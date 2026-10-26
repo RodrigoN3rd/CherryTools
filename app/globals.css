@@ -124,6 +124,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .range-field output { color: var(--cherry); font-size: .73rem; font-weight: 800; }
 .code-block { overflow: auto; padding: .8rem; border-radius: var(--radius-sm); color: #573a40; background: #f9ebec; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .75rem; line-height: 1.55; white-space: pre-wrap; }
 .control-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.action-status { align-self: center; color: var(--success); font-size: .72rem; font-weight: 700; }
 .status { min-height: 1.2rem; margin: .7rem 0 0; color: var(--muted); font-size: .78rem; }
 .status--error { color: var(--danger); }
 .status--success { color: var(--success); }
