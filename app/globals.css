@@ -19,14 +19,16 @@
   --radius-full: 999px;
   --shadow-soft: 0 1px 2px rgb(98 46 59 / 0.06), 0 10px 30px rgb(98 46 59 / 0.07);
   --shadow-lift: 0 2px 6px rgb(98 46 59 / 0.09), 0 18px 42px rgb(98 46 59 / 0.12);
-  --display: Georgia, "Times New Roman", serif;
+  --display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --sans: "DM Sans", "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  --mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
 html { min-width: 320px; background: var(--cream); }
 body { min-height: 100vh; margin: 0; color: var(--ink); background: var(--cream); font-family: var(--sans); font-size: 16px; line-height: 1.5; }
 button, input, select, textarea { font: inherit; }
+.google-symbol { display: inline-block; font-family: "Material Symbols Outlined"; font-style: normal; font-weight: normal; line-height: 1; letter-spacing: normal; text-transform: none; white-space: nowrap; word-wrap: normal; direction: ltr; vertical-align: -.15em; }
 button { cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgb(184 59 75 / 0.38); outline-offset: 3px; }
