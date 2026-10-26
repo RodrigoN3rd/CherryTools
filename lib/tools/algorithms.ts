@@ -212,3 +212,12 @@ export function patternCss(kind: "dots" | "lines" | "grid" | "checks", color: st
   if (kind === "checks") return `conic-gradient(${ink} 25%, transparent 0 50%, ${ink} 0 75%, transparent 0) 0 0 / ${unit}px ${unit}px`;
   return `linear-gradient(${ink} 1px, transparent 1px), linear-gradient(90deg, ${ink} 1px, transparent 1px) 0 0 / ${unit}px ${unit}px`;
 }
+
+export type SocialCanvasFormat = "square" | "portrait" | "story" | "landscape";
+
+export function socialCanvasDimensions(format: SocialCanvasFormat): { width: number; height: number; label: string } {
+  if (format === "portrait") return { width: 1080, height: 1350, label: "1080 × 1350" };
+  if (format === "story") return { width: 1080, height: 1920, label: "1080 × 1920" };
+  if (format === "landscape") return { width: 1200, height: 628, label: "1200 × 628" };
+  return { width: 1080, height: 1080, label: "1080 × 1080" };
+}

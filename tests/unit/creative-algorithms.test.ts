@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { borderRadiusCss, boxShadowCss, createPrompt, makeSvgShape, patternCss, textShadowCss, typographyScale } from "@/lib/tools/algorithms";
+import { borderRadiusCss, boxShadowCss, createPrompt, makeSvgShape, patternCss, socialCanvasDimensions, textShadowCss, typographyScale } from "@/lib/tools/algorithms";
 
 describe("creative tool helpers", () => {
   it("builds a predictable modular type scale", () => {
@@ -22,5 +22,10 @@ describe("creative tool helpers", () => {
     expect(textShadowCss({ x: 2, y: 3, blur: 4, color: "#B83B4B", opacity: 0.5 })).toBe("2px 3px 4px rgb(184 59 75 / 0.5)");
     expect(boxShadowCss([{ x: 2, y: 4, blur: 12, spread: 0, color: "#622E3B", opacity: 0.16, inset: false }])).toBe("2px 4px 12px 0px rgb(98 46 59 / 0.16)");
     expect(borderRadiusCss([4, 8, 12, 16])).toBe("4px 8px 12px 16px");
+  });
+
+  it("uses the correct canvas dimensions for social publishing formats", () => {
+    expect(socialCanvasDimensions("square")).toEqual({ width: 1080, height: 1080, label: "1080 × 1080" });
+    expect(socialCanvasDimensions("story")).toEqual({ width: 1080, height: 1920, label: "1080 × 1920" });
   });
 });

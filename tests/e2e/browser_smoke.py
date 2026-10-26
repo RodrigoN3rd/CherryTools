@@ -36,6 +36,26 @@ with sync_playwright() as playwright:
     assert "repeating-linear-gradient" in page.locator(".code-block").inner_text()
     page.screenshot(path="/tmp/cherry-pattern.png", full_page=True)
 
+    page.goto("http://127.0.0.1:3100/tools/design-inspiration-prompt-generator", wait_until="networkidle")
+    page.locator("#prompt-niche").fill("capa de álbum")
+    page.get_by_role("button", name="Outra direção").click()
+    assert "capa de álbum" in page.locator(".code-block").inner_text()
+
+    page.goto("http://127.0.0.1:3100/tools/moodboard-creator", wait_until="networkidle")
+    page.locator("#moodboard-files").set_input_files("/tmp/cherry-home.png")
+    assert page.locator(".mood-card").count() == 1
+    with page.expect_download() as moodboard_download:
+        page.get_by_role("button", name="Exportar PNG").click()
+    assert moodboard_download.value.suggested_filename == "cherry-moodboard.png"
+
+    page.goto("http://127.0.0.1:3100/tools/social-media-canvas-studio", wait_until="networkidle")
+    page.locator("#social-format").select_option("story")
+    assert "1080 × 1920" in page.locator(".social-spec").inner_text()
+    with page.expect_download() as social_download:
+        page.get_by_role("button", name="Exportar PNG").click()
+    assert social_download.value.suggested_filename == "cherry-social-story.png"
+    page.screenshot(path="/tmp/cherry-social.png", full_page=True)
+
     mobile = browser.new_page(viewport={"width": 375, "height": 812})
     mobile.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
     mobile.goto("http://127.0.0.1:3100/tools/border-radius-generator", wait_until="networkidle")
