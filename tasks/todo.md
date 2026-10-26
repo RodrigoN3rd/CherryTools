@@ -15,7 +15,7 @@
   - Verificar: teste unitário de desenho e Playwright de download.
   - Arquivos: novo estúdio tipográfico, exportadores, CSS, workspace, testes.
 
-- [ ] Estúdio de tipografia cinética
+- [x] Estúdio de tipografia cinética
   - Aceite: gera PNG e WebM local com fallback explícito.
   - Verificar: testes de suporte e download em Chromium.
   - Arquivos: estúdio, exportador, testes.

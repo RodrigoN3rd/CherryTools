@@ -52,6 +52,17 @@ with sync_playwright() as playwright:
     page.locator("#quote-author").fill("Um ateliê local")
     assert page.locator("canvas[aria-label='Prévia de cartão de citação']").is_visible()
 
+    page.goto("http://127.0.0.1:3100/tools/kinetic-typography-loop", wait_until="networkidle")
+    page.locator("#kinetic-type-motion").select_option("pulse")
+    assert page.locator("canvas[aria-label='Prévia de tipografia cinética']").is_visible()
+    with page.expect_download() as kinetic_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert kinetic_png_download.value.suggested_filename == "cherry-kinetic-type.png"
+    assert page.get_by_role("button", name="Baixar WebM").is_enabled()
+    with page.expect_download(timeout=15000) as kinetic_video_download:
+        page.get_by_role("button", name="Baixar WebM").click()
+    assert kinetic_video_download.value.suggested_filename == "cherry-kinetic-type.webm"
+
     page.goto("http://127.0.0.1:3100/tools/text-shadow-generator", wait_until="networkidle")
     page.locator("#text-shadow-blur").press("ArrowRight")
     assert "text-shadow:" in page.locator(".code-block").inner_text()
