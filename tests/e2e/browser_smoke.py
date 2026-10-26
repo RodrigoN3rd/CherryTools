@@ -8,7 +8,7 @@ with sync_playwright() as playwright:
     page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
     page.goto("http://127.0.0.1:3100", wait_until="networkidle")
     assert page.get_by_role("heading", name="Um lugar calmo para deixar sua criação florescer.").is_visible()
-    assert page.locator(".tool-card").count() == 20
+    assert page.locator(".tool-card").count() == 35
     assert page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]').count() == 2
     assert page.locator(".google-symbol").count() > 0
     page.screenshot(path="/tmp/cherry-home.png", full_page=True)
@@ -19,6 +19,38 @@ with sync_playwright() as playwright:
     page.goto("http://127.0.0.1:3100/tools/typography-scale-generator", wait_until="networkidle")
     assert page.get_by_role("heading", name="Escala tipográfica").is_visible()
     assert "--type-6" in page.locator(".code-block").inner_text()
+
+    page.goto("http://127.0.0.1:3100/tools/google-font-explorer", wait_until="networkidle")
+    assert page.get_by_role("heading", name="Google Fonts").is_visible()
+    page.locator("#google-font-family").select_option("1")
+    page.locator("#google-font-sample").fill("Uma família, muitas direções.")
+    with page.expect_download() as google_font_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert google_font_download.value.suggested_filename == "cherry-google-font.png"
+
+    page.goto("http://127.0.0.1:3100/tools/variable-font-axis-studio", wait_until="networkidle")
+    page.locator("#variable-font-weight").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia dos eixos de fonte variável']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/typographic-poster", wait_until="networkidle")
+    page.locator("#poster-headline").fill("MAIS\nESPAÇO")
+    assert page.locator("canvas[aria-label='Prévia de pôster tipográfico']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/text-outline-studio", wait_until="networkidle")
+    page.locator("#outline-thickness").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia de texto com contorno']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/monogram-generator", wait_until="networkidle")
+    page.locator("#monogram-initials").fill("CT")
+    assert page.locator("canvas[aria-label='Prévia de monograma']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/text-on-a-path", wait_until="networkidle")
+    page.locator("#text-path-curve").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia de texto em curva']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/quote-card-generator", wait_until="networkidle")
+    page.locator("#quote-author").fill("Um ateliê local")
+    assert page.locator("canvas[aria-label='Prévia de cartão de citação']").is_visible()
 
     page.goto("http://127.0.0.1:3100/tools/text-shadow-generator", wait_until="networkidle")
     page.locator("#text-shadow-blur").press("ArrowRight")

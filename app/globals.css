@@ -163,6 +163,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .upload-box small { color: var(--muted); font-size: .65rem; }
 .canvas-image { display: block; max-width: 100%; max-height: 29rem; width: auto; height: auto; border-radius: var(--radius-sm); box-shadow: 0 2px 10px rgb(53 42 45 / .09); object-fit: contain; }
 .canvas-image--pixel { image-rendering: pixelated; }
+.canvas-preview-panel { align-content: center; gap: .9rem; }
+.design-canvas { display: block; width: min(100%, 44rem); max-height: 31rem; height: auto; border: 1px solid rgb(98 46 59 / .1); border-radius: var(--radius-sm); background: #fff8f1; box-shadow: 0 8px 22px rgb(98 46 59 / .11); }
+.canvas-preview-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .7rem; }
+.canvas-preview-actions .status { margin: 0; }
 .preview-caption { margin: .8rem 0 0; color: var(--muted); font-size: .74rem; text-align: center; }
 .check-field { display: flex; align-items: center; gap: .5rem; margin: .75rem 0; color: var(--muted); font-size: .76rem; font-weight: 700; }
 .check-field input { accent-color: var(--cherry); }
