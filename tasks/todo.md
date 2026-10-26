@@ -35,6 +35,6 @@
   - Verificar: matriz de smoke tests de cada categoria.
   - Arquivos: estúdios existentes, CSS, exportadores e testes.
 
-- [ ] Regressão e handoff
+- [x] Regressão e handoff
   - Aceite: build de produção, teste de navegador em 375 px e 1440 px, console limpo e worktree limpo.
   - Verificar: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`.
