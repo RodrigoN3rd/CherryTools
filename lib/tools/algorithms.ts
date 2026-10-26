@@ -145,6 +145,35 @@ export function typographyScale(base: number, ratio: number, steps = 6, lineHeig
   });
 }
 
+export type ShadowLayer = {
+  x: number;
+  y: number;
+  blur: number;
+  spread: number;
+  color: string;
+  opacity: number;
+  inset: boolean;
+};
+
+type TextShadow = Omit<ShadowLayer, "spread" | "inset">;
+
+export function cssColor(color: string, opacity = 1): string {
+  const { r, g, b } = hexToRgb(color);
+  return `rgb(${r} ${g} ${b} / ${Number(clamp(opacity, 0, 1).toFixed(2))})`;
+}
+
+export function textShadowCss({ x, y, blur, color, opacity }: TextShadow): string {
+  return `${Math.round(x)}px ${Math.round(y)}px ${Math.max(0, Math.round(blur))}px ${cssColor(color, opacity)}`;
+}
+
+export function boxShadowCss(layers: ShadowLayer[]): string {
+  return layers.map(({ x, y, blur, spread, color, opacity, inset }) => `${inset ? "inset " : ""}${Math.round(x)}px ${Math.round(y)}px ${Math.max(0, Math.round(blur))}px ${Math.round(spread)}px ${cssColor(color, opacity)}`).join(", ");
+}
+
+export function borderRadiusCss(corners: number[]): string {
+  return corners.slice(0, 4).map((corner) => `${Math.max(0, Math.round(corner))}px`).join(" ");
+}
+
 export function createPrompt(input: { niche: string; style: string; colors: string; goal: string; difficulty: string }, seed = 0): string {
   const structures = [
     "Crie uma peça principal que conduza o olhar de longe para perto.",
