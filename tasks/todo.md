@@ -20,7 +20,7 @@
   - Verificar: testes de suporte e download em Chromium.
   - Arquivos: estúdio, exportador, testes.
 
-- [ ] Estúdios de web design estáticos
+- [x] Estúdios de web design estáticos
   - Aceite: seis ferramentas geram prévia e PNG a partir de controles reais.
   - Verificar: unitários e Playwright.
   - Arquivos: novo estúdio web, exportadores, CSS, workspace, testes.

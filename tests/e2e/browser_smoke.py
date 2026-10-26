@@ -63,6 +63,32 @@ with sync_playwright() as playwright:
         page.get_by_role("button", name="Baixar WebM").click()
     assert kinetic_video_download.value.suggested_filename == "cherry-kinetic-type.webm"
 
+    page.goto("http://127.0.0.1:3100/tools/layout-grid-generator", wait_until="networkidle")
+    page.locator("#layout-grid-columns").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia de grid de layout']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/button-studio", wait_until="networkidle")
+    page.locator("#button-label").fill("Ver coleção")
+    assert page.locator("canvas[aria-label='Prévia de botão de interface']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/glass-surface-generator", wait_until="networkidle")
+    page.locator("#glass-blur").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia de superfície de vidro']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/mesh-gradient-generator", wait_until="networkidle")
+    page.locator("#mesh-color-0").fill("#D77988")
+    with page.expect_download() as mesh_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert mesh_download.value.suggested_filename == "cherry-mesh-gradient.png"
+
+    page.goto("http://127.0.0.1:3100/tools/hero-composer", wait_until="networkidle")
+    page.locator("#hero-headline").fill("A primeira dobra importa.")
+    assert page.locator("canvas[aria-label='Prévia de hero section']").is_visible()
+
+    page.goto("http://127.0.0.1:3100/tools/device-mockup-generator", wait_until="networkidle")
+    page.locator("#device-kind").select_option("browser")
+    assert page.locator("canvas[aria-label='Prévia de mockup de dispositivo']").is_visible()
+
     page.goto("http://127.0.0.1:3100/tools/text-shadow-generator", wait_until="networkidle")
     page.locator("#text-shadow-blur").press("ArrowRight")
     assert "text-shadow:" in page.locator(".code-block").inner_text()
