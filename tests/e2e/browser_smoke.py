@@ -89,6 +89,17 @@ with sync_playwright() as playwright:
     page.locator("#device-kind").select_option("browser")
     assert page.locator("canvas[aria-label='Prévia de mockup de dispositivo']").is_visible()
 
+    page.goto("http://127.0.0.1:3100/tools/organic-background-loop", wait_until="networkidle")
+    page.locator("#organic-speed").press("ArrowRight")
+    assert page.locator("canvas[aria-label='Prévia de fundo orgânico animado']").is_visible()
+    with page.expect_download() as organic_png_download:
+        page.get_by_role("button", name="Baixar PNG").click()
+    assert organic_png_download.value.suggested_filename == "cherry-organic-background.png"
+    assert page.get_by_role("button", name="Baixar WebM").is_enabled()
+    with page.expect_download(timeout=15000) as organic_video_download:
+        page.get_by_role("button", name="Baixar WebM").click()
+    assert organic_video_download.value.suggested_filename == "cherry-organic-background.webm"
+
     page.goto("http://127.0.0.1:3100/tools/text-shadow-generator", wait_until="networkidle")
     page.locator("#text-shadow-blur").press("ArrowRight")
     assert "text-shadow:" in page.locator(".code-block").inner_text()

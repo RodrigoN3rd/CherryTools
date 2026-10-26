@@ -25,7 +25,7 @@
   - Verificar: unitários e Playwright.
   - Arquivos: novo estúdio web, exportadores, CSS, workspace, testes.
 
-- [ ] Fundo orgânico animado
+- [x] Fundo orgânico animado
   - Aceite: gera PNG e WebM local com fallback explícito.
   - Verificar: suporte e download em Chromium.
   - Arquivos: estúdio, exportador, testes.
