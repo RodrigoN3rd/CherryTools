@@ -19,6 +19,7 @@ export function HomePage() {
           <div className="hero-actions">
             <a className="button button-primary" href="#colors">Escolher uma ferramenta <ArrowRight size={16} /></a>
             <Link className="button button-quiet" href="/tools/color-palette-generator">Gerar uma paleta</Link>
+            <Link className="button button-quiet" href="/library">Explorar apps livres</Link>
           </div>
         </div>
         <div className="hero-art" aria-label="Uma amostra de paleta criativa" role="img">

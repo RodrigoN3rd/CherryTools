@@ -18,6 +18,10 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
               </Link>
             ))}
           </nav>
+          <p className="rail-note">Descobrir</p>
+          <nav className="category-nav" aria-label="Biblioteca">
+            <Link className="category-link" href="/library"><span>Apps livres</span><span>ver</span></Link>
+          </nav>
           <div className="desktop-rail__footer rail-upgrade">
             <p>Mais espaço<br />para criar.</p>
             <Link className="button button-small button-primary" href="/premium">Conhecer Premium</Link>
@@ -28,7 +32,7 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
       <nav className="mobile-bar" aria-label="Navegação de bolso">
         <Link className="mobile-nav-link" href="/"><Home /><span>Início</span></Link>
         <Link className="mobile-nav-link" href="/#colors"><Search /><span>Explorar</span></Link>
-        <Link className="mobile-nav-link" href="/#creative"><Compass /><span>Criar</span></Link>
+        <Link className="mobile-nav-link" href="/library"><Compass /><span>Biblioteca</span></Link>
         <Link className="mobile-nav-link" href="/premium"><Crown /><span>Premium</span></Link>
       </nav>
     </div>

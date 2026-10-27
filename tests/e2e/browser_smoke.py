@@ -174,10 +174,20 @@ with sync_playwright() as playwright:
     assert "utm_source=instagram+ads" in page.locator(".code-block").inner_text()
 
     page.goto("http://127.0.0.1:3100/tools/qr-code-generator", wait_until="networkidle")
-    assert page.locator(".qr-preview img").is_visible()
+    assert page.locator(".qr-preview img").is_visible(timeout=5000)
     with page.expect_download() as qr_svg_download:
         page.get_by_role("button", name="SVG").click()
     assert qr_svg_download.value.suggested_filename == "cherry-qr-code.svg"
+
+    page.goto("http://127.0.0.1:3100/library", wait_until="networkidle")
+    assert page.get_by_role("heading", name="Cherry Open Source Library").is_visible()
+    page.get_by_label("Buscar aplicativos").fill("blender")
+    assert page.get_by_role("heading", name="Blender").is_visible()
+    page.get_by_label("Sistema operacional").select_option("linux")
+    assert page.get_by_role("heading", name="Blender").is_visible()
+    page.goto("http://127.0.0.1:3100/library/blender", wait_until="networkidle")
+    assert page.get_by_role("heading", name="Blender").is_visible()
+    assert page.get_by_role("link", name="Abrir download oficial").is_visible()
 
     mobile = browser.new_page(viewport={"width": 375, "height": 812})
     mobile.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
@@ -191,6 +201,10 @@ with sync_playwright() as playwright:
     mobile.locator("#calendar-title").fill("Pauta mobile")
     mobile.get_by_role("button", name="Adicionar ao plano").click()
     assert "Pauta mobile" in mobile.locator(".calendar-board").inner_text()
+    assert mobile.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+    mobile.goto("http://127.0.0.1:3100/library", wait_until="networkidle")
+    assert mobile.get_by_role("heading", name="Cherry Open Source Library").is_visible()
+    assert mobile.get_by_label("Buscar aplicativos").is_visible()
     assert mobile.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
     assert not errors
     mobile.close()
