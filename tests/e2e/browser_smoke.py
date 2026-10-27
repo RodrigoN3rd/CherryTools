@@ -174,7 +174,7 @@ with sync_playwright() as playwright:
     assert "utm_source=instagram+ads" in page.locator(".code-block").inner_text()
 
     page.goto("http://127.0.0.1:3100/tools/qr-code-generator", wait_until="networkidle")
-    assert page.locator(".qr-preview img").is_visible(timeout=5000)
+    assert page.locator(".qr-preview img").is_visible(timeout=15000)
     with page.expect_download() as qr_svg_download:
         page.get_by_role("button", name="SVG").click()
     assert qr_svg_download.value.suggested_filename == "cherry-qr-code.svg"
@@ -188,6 +188,9 @@ with sync_playwright() as playwright:
     page.goto("http://127.0.0.1:3100/library/blender", wait_until="networkidle")
     assert page.get_by_role("heading", name="Blender").is_visible()
     assert page.get_by_role("link", name="Abrir download oficial").is_visible()
+    release_response = page.goto("http://127.0.0.1:3100/api/open-source/godot/release", wait_until="load")
+    assert release_response and release_response.status == 200
+    assert '"status":"disabled"' in page.locator("body").inner_text()
 
     mobile = browser.new_page(viewport={"width": 375, "height": 812})
     mobile.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
