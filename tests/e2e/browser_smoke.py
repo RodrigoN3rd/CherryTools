@@ -8,7 +8,7 @@ with sync_playwright() as playwright:
     page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
     page.goto("http://127.0.0.1:3100", wait_until="networkidle")
     assert page.get_by_role("heading", name="Um lugar calmo para deixar sua criação florescer.").is_visible()
-    assert page.locator(".tool-card").count() == 35
+    assert page.locator(".tool-card").count() == 55
     assert page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]').count() == 2
     assert page.locator(".google-symbol").count() > 0
     page.screenshot(path="/tmp/cherry-home.png", full_page=True)
@@ -150,6 +150,35 @@ with sync_playwright() as playwright:
     assert social_download.value.suggested_filename == "cherry-social-story.png"
     page.screenshot(path="/tmp/cherry-social.png", full_page=True)
 
+    page.goto("http://127.0.0.1:3100/tools/caption-generator", wait_until="networkidle")
+    assert page.get_by_role("heading", name="Caption Generator").is_visible()
+    page.locator("#caption-niche").fill("ilustração")
+    page.get_by_role("button", name="Gerar variações").click()
+    assert "ilustração" in page.locator(".caption-results").inner_text()
+    with page.expect_download() as caption_png_download:
+        page.get_by_role("button", name="PNG").first.click()
+    assert caption_png_download.value.suggested_filename == "cherry-legenda-1.png"
+
+    page.goto("http://127.0.0.1:3100/tools/carousel-maker", wait_until="networkidle")
+    assert page.get_by_role("heading", name="Carousel Maker").is_visible()
+    page.locator("#carousel-title").fill("Uma sequência testável")
+    page.get_by_role("button", name="Duplicar").click()
+    assert page.locator(".slide-thumb").count() == 4
+    with page.expect_download() as carousel_png_download:
+        page.get_by_role("button", name="PNG atual").click()
+    assert carousel_png_download.value.suggested_filename == "cherry-carousel-2.png"
+
+    page.goto("http://127.0.0.1:3100/tools/utm-link-builder", wait_until="networkidle")
+    page.locator("#utm-source").fill("instagram ads")
+    page.get_by_role("button", name="Gerar URL").click()
+    assert "utm_source=instagram+ads" in page.locator(".code-block").inner_text()
+
+    page.goto("http://127.0.0.1:3100/tools/qr-code-generator", wait_until="networkidle")
+    assert page.locator(".qr-preview img").is_visible()
+    with page.expect_download() as qr_svg_download:
+        page.get_by_role("button", name="SVG").click()
+    assert qr_svg_download.value.suggested_filename == "cherry-qr-code.svg"
+
     mobile = browser.new_page(viewport={"width": 375, "height": 812})
     mobile.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
     mobile.goto("http://127.0.0.1:3100/tools/border-radius-generator", wait_until="networkidle")
@@ -157,6 +186,12 @@ with sync_playwright() as playwright:
     assert mobile.get_by_role("button", name="Forma orgânica").is_visible()
     assert mobile.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
     mobile.screenshot(path="/tmp/cherry-radius-mobile.png", full_page=True)
+    mobile.goto("http://127.0.0.1:3100/tools/content-calendar", wait_until="networkidle")
+    assert mobile.get_by_role("heading", name="Content Calendar").is_visible()
+    mobile.locator("#calendar-title").fill("Pauta mobile")
+    mobile.get_by_role("button", name="Adicionar ao plano").click()
+    assert "Pauta mobile" in mobile.locator(".calendar-board").inner_text()
+    assert mobile.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
     assert not errors
     mobile.close()
     browser.close()

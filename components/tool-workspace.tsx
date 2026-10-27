@@ -10,6 +10,7 @@ import { KineticTypeStudio } from "./studio/kinetic-type-studio";
 import { WebLabStudio } from "./studio/web-lab-studio";
 import { OrganicBackgroundStudio } from "./studio/organic-background-studio";
 import { WebStudio } from "./studio/web-studio";
+import { SocialMediaStudio } from "./studio/social-media-studio";
 
 const colorKinds = new Set(["palette", "extractor", "gradient", "contrast", "harmony"]);
 const imageKinds = new Set(["resize", "compress", "convert", "crop", "pixel"]);
@@ -20,6 +21,7 @@ const webKinds = new Set(["box-shadow", "radius", "svg", "pattern"]);
 const webLabKinds = new Set(["layout-grid", "button-studio", "glass-surface", "mesh-gradient", "hero-composer", "device-mockup"]);
 const organicBackgroundKinds = new Set(["organic-background"]);
 const creativeKinds = new Set(["moodboard", "prompt", "social"]);
+const socialMediaKinds = new Set(["carousel", "social-resizer", "thumbnail", "instagram-grid", "story", "safe-zone", "caption", "hashtags", "calendar", "brand-kit", "link-bio", "qr-code", "watermark", "utm", "post-mockup", "text-overlay", "content-ideas", "media-kit", "meme", "content-checklist"]);
 
 export function ToolWorkspace({ tool }: { tool: ToolDefinition }) {
   if (colorKinds.has(tool.kind)) return <ColorStudio tool={tool as never} />;
@@ -30,6 +32,7 @@ export function ToolWorkspace({ tool }: { tool: ToolDefinition }) {
   if (webKinds.has(tool.kind)) return <WebStudio tool={tool as never} />;
   if (webLabKinds.has(tool.kind)) return <WebLabStudio tool={tool as never} />;
   if (organicBackgroundKinds.has(tool.kind)) return <OrganicBackgroundStudio tool={tool as never} />;
+  if (socialMediaKinds.has(tool.kind)) return <SocialMediaStudio tool={tool as never} />;
   if (creativeKinds.has(tool.kind)) return <CreativeStudio tool={tool as never} />;
   return <div className="panel"><h2>Este estúdio está sendo preparado.</h2><p className="panel-help">A rota e as informações já existem; os controles funcionais entram na próxima etapa de implementação.</p></div>;
 }

@@ -1,4 +1,4 @@
-export type ToolCategory = "colors" | "images" | "type" | "web" | "creative";
+export type ToolCategory = "colors" | "images" | "type" | "web" | "creative" | "social";
 export type ToolKind =
   | "palette"
   | "extractor"
@@ -34,7 +34,27 @@ export type ToolKind =
   | "organic-background"
   | "moodboard"
   | "prompt"
-  | "social";
+  | "social"
+  | "carousel"
+  | "social-resizer"
+  | "thumbnail"
+  | "instagram-grid"
+  | "story"
+  | "safe-zone"
+  | "caption"
+  | "hashtags"
+  | "calendar"
+  | "brand-kit"
+  | "link-bio"
+  | "qr-code"
+  | "watermark"
+  | "utm"
+  | "post-mockup"
+  | "text-overlay"
+  | "content-ideas"
+  | "media-kit"
+  | "meme"
+  | "content-checklist";
 
 export type ToolDefinition = {
   slug: string;
@@ -52,7 +72,8 @@ export const categories: Array<{ id: ToolCategory; name: string; description: st
   { id: "images", name: "Imagens", description: "Ajustes locais, sem enviar seus arquivos.", color: "#D77988" },
   { id: "type", name: "Tipografia", description: "Ritmo, pares e presença editorial.", color: "#8B5963" },
   { id: "web", name: "Web design", description: "CSS útil, visual e copiável.", color: "#9D6A54" },
-  { id: "creative", name: "Criatividade", description: "Um ateliê para começar com intenção.", color: "#6B7563" }
+  { id: "creative", name: "Criatividade", description: "Um ateliê para começar com intenção.", color: "#6B7563" },
+  { id: "social", name: "Social Studio", description: "Produza, planeje e publique com intenção.", color: "#B83B4B" }
 ];
 
 export const tools: ToolDefinition[] = [
@@ -90,7 +111,27 @@ export const tools: ToolDefinition[] = [
   { slug: "organic-background-loop", name: "Fundo orgânico", eyebrow: "Cor em movimento", description: "Gere um fundo fluido e baixe PNG ou vídeo WebM local.", category: "web", kind: "organic-background", icon: "Sparkles", keywords: ["background", "webm", "animação"] },
   { slug: "moodboard-creator", name: "Moodboard", eyebrow: "Referências em conversa", description: "Organize imagens, notas e cores numa única prancha exportável.", category: "creative", kind: "moodboard", icon: "PanelsTopLeft", keywords: ["moodboard", "referência", "png"] },
   { slug: "design-inspiration-prompt-generator", name: "Ideias de projeto", eyebrow: "Começos melhores", description: "Monte um briefing acionável sem depender de IA paga.", category: "creative", kind: "prompt", icon: "Sparkles", keywords: ["briefing", "ideias", "prompt"] },
-  { slug: "social-media-canvas-studio", name: "Canvas social", eyebrow: "Publicar com cuidado", description: "Componha uma arte social simples e exporte em PNG.", category: "creative", kind: "social", icon: "Frames", keywords: ["social", "instagram", "canvas"] }
+  { slug: "social-media-canvas-studio", name: "Canvas social", eyebrow: "Publicar com cuidado", description: "Componha uma arte social simples e exporte em PNG.", category: "creative", kind: "social", icon: "Frames", keywords: ["social", "instagram", "canvas"] },
+  { slug: "carousel-maker", name: "Carousel Maker", eyebrow: "Sequência visual", description: "Crie, duplique, organize e exporte slides de carrossel localmente.", category: "social", kind: "carousel", icon: "Frames", keywords: ["carrossel", "instagram", "png", "zip"] },
+  { slug: "social-image-resizer", name: "Social Image Resizer", eyebrow: "Tamanho certo", description: "Recorte e redimensione imagens para presets sociais configuráveis.", category: "social", kind: "social-resizer", icon: "Maximize", keywords: ["resize", "instagram", "youtube", "tiktok"] },
+  { slug: "thumbnail-studio", name: "Thumbnail Studio", eyebrow: "Clique com clareza", description: "Monte thumbnails com imagem, texto, contorno, sombra e PNG.", category: "social", kind: "thumbnail", icon: "Frame", keywords: ["thumbnail", "youtube", "texto", "png"] },
+  { slug: "instagram-grid-preview", name: "Instagram Grid Preview", eyebrow: "Feed simulado", description: "Organize uma grade planejada localmente; não acessa nenhuma conta real.", category: "social", kind: "instagram-grid", icon: "Grid2X2", keywords: ["instagram", "feed", "grade", "planejamento"] },
+  { slug: "story-designer", name: "Story Designer", eyebrow: "Vertical e vivo", description: "Desenhe Stories com templates, camadas visuais e guias de posição.", category: "social", kind: "story", icon: "PanelsTopLeft", keywords: ["story", "reels", "vertical", "png"] },
+  { slug: "social-safe-zone-checker", name: "Social Safe Zone Checker", eyebrow: "Área segura", description: "Confira áreas de interface sobre imagens ou vídeos antes de publicar.", category: "social", kind: "safe-zone", icon: "Crop", keywords: ["safe zone", "reels", "tiktok", "shorts"] },
+  { slug: "caption-generator", name: "Caption Generator", eyebrow: "Texto com direção", description: "Gere variações de legenda por regras locais, sem API paga.", category: "social", kind: "caption", icon: "TextCursorInput", keywords: ["legenda", "caption", "cta", "copy"] },
+  { slug: "hashtag-organizer", name: "Hashtag Organizer", eyebrow: "Conjuntos claros", description: "Deduplicate, agrupe e salve hashtags por campanha no dispositivo.", category: "social", kind: "hashtags", icon: "ListTree", keywords: ["hashtags", "campanha", "copiar"] },
+  { slug: "content-calendar", name: "Content Calendar", eyebrow: "Plano editorial", description: "Planeje rascunhos e tarefas em calendário, com histórico e CSV.", category: "social", kind: "calendar", icon: "LayoutTemplate", keywords: ["calendário", "conteúdo", "csv", "planejamento"] },
+  { slug: "brand-kit-creator", name: "Brand Kit Creator", eyebrow: "Assinatura visual", description: "Guarde paleta, tipografia e logo em kits locais exportáveis.", category: "social", kind: "brand-kit", icon: "Palette", keywords: ["brand kit", "logo", "paleta", "tipografia"] },
+  { slug: "link-in-bio-builder", name: "Link in Bio Builder", eyebrow: "Uma página, seus links", description: "Monte uma página de links segura, com preview e HTML para publicar.", category: "social", kind: "link-bio", icon: "LayoutTemplate", keywords: ["link in bio", "links", "perfil", "html"] },
+  { slug: "qr-code-generator", name: "QR Code Generator", eyebrow: "Um link escaneável", description: "Crie QR Codes em SVG e PNG, com cor, margem e checagem de conteúdo.", category: "social", kind: "qr-code", icon: "Grid2X2", keywords: ["qr", "qrcode", "svg", "png"] },
+  { slug: "watermark-studio", name: "Watermark Studio", eyebrow: "Marca em lote", description: "Aplique marca-d’água de texto ou imagem em arquivos locais.", category: "social", kind: "watermark", icon: "Layers", keywords: ["watermark", "marca d'água", "lote", "png"] },
+  { slug: "utm-link-builder", name: "UTM Link Builder", eyebrow: "Rastreio claro", description: "Monte URLs UTM validadas, codificadas e guardadas localmente.", category: "social", kind: "utm", icon: "Spline", keywords: ["utm", "url", "campanha", "analytics"] },
+  { slug: "post-mockup-generator", name: "Post Mockup Generator", eyebrow: "Contexto honesto", description: "Apresente uma arte em post genérico com perfil claramente fictício.", category: "social", kind: "post-mockup", icon: "Frame", keywords: ["mockup", "post", "instagram", "png"] },
+  { slug: "text-overlay-generator", name: "Text Overlay Generator", eyebrow: "Mensagem em camada", description: "Sobreponha texto com fontes, sombra, contorno e gradiente.", category: "social", kind: "text-overlay", icon: "Type", keywords: ["texto", "overlay", "imagem", "png"] },
+  { slug: "social-content-idea-generator", name: "Social Content Idea Generator", eyebrow: "Pautas locais", description: "Combine nicho, público, formato e objetivo para criar pautas acionáveis.", category: "social", kind: "content-ideas", icon: "Sparkles", keywords: ["ideias", "conteúdo", "social", "pauta"] },
+  { slug: "media-kit-builder", name: "Media Kit Builder", eyebrow: "Apresentação comercial", description: "Monte um media kit honesto com seus próprios dados e exporte em PDF.", category: "social", kind: "media-kit", icon: "FileDown", keywords: ["media kit", "pdf", "portfólio", "serviços"] },
+  { slug: "meme-quote-maker", name: "Meme & Quote Maker", eyebrow: "Humor e frase", description: "Crie memes e cards de citação originais com texto posicionável.", category: "social", kind: "meme", icon: "Frames", keywords: ["meme", "quote", "frase", "png"] },
+  { slug: "content-checklist-generator", name: "Content Checklist Generator", eyebrow: "Publicar com cuidado", description: "Gere e salve checklists de publicação, acessibilidade e revisão.", category: "social", kind: "content-checklist", icon: "ListTree", keywords: ["checklist", "acessibilidade", "publicação", "revisão"] }
 ];
 
 export const getTool = (slug: string) => tools.find((tool) => tool.slug === slug);
